@@ -1,0 +1,156 @@
+import { enScanHistory } from '../en/scanHistory';
+
+export const frScanHistory: Record<string, string> = {
+  ...enScanHistory,
+  // Topbar / Header
+  backTooltip: 'Retour',
+  headerTitle: 'Journal d\'Activité & Scans',
+  headerTitleWithUser: 'Historique des Scans : {name}',
+  proPlanBadge: 'Plan Pro',
+  scansRecorded: '{count} bips enregistrés',
+  operatorsCount: '{count} opérateurs',
+  operatorsSingular: '{count} opérateur',
+  globalRevenue: 'Recette Globale :',
+  guideTooltip: 'Guide Explicatif pour Administrateurs',
+  loading: 'Chargement de l\'audit des scans...',
+
+  // Subscription Locked Feature
+  lockExclusive: 'Fonctionnalité Exclusive Pro & Enterprise',
+  lockTitle: 'Audit Médico-légal des Scans (Anti-Vol)',
+  lockDesc: 'L\'accès chronologique à chaque code-barres scanné par opérateur, les temps de service et le rapprochement de tiroir font partie du plan Pro.',
+  lockFeature1Title: 'Enregistrement de Chaque Bip',
+  lockFeature1Desc: 'Horodatage exact et produit enregistré au lecteur.',
+  lockFeature2Title: 'Classement par Opérateur',
+  lockFeature2Desc: 'Métriques comparatives de chiffre d\'affaires et de volume.',
+  lockFeature3Title: 'Suivi des Sorties',
+  lockFeature3Desc: 'Audit des prélèvements et retraits de tiroir.',
+  lockFeature4Title: 'Prévention Anti-Fraude',
+  lockFeature4Desc: 'Évitez les pertes de stock et les ventes omises.',
+  btnBackToPanel: 'Retour au Panneau',
+  btnUnlockPro: 'Débloquer avec Pro / Enterprise',
+
+  // Operator Table Toolbar
+  searchOperatorPlaceholder: 'Rechercher par opérateur ou ID...',
+  sortBy: 'Trier par :',
+  sortSalesDesc: 'Chiffre d\'Affaires le Plus Élevé',
+  sortScansDesc: 'Plus de Bips',
+  sortNameAsc: 'Nom (A-Z)',
+  operatorBadgeSingular: 'Opérateur',
+  operatorBadgePlural: 'Opérateurs',
+  totalBips: 'Total Bips :',
+
+  // Operator Table Content
+  noOperatorsFound: 'Aucun opérateur trouvé',
+  adjustSearch: 'Essayez d\'ajuster votre recherche.',
+  thOperatorPerf: 'Opérateur / Performance',
+  thScansItems: 'Bips / Articles',
+  thValuesByMethod: 'Valeurs par Méthode (MT)',
+  thPayouts: 'Sorties',
+  thTotalRevenue: 'Recette Totale',
+  syncedCloud: 'Synchronisé avec le Cloud',
+  syncPending: 'En attente de synchronisation',
+  topSeller: 'Top',
+  bipsCount: '{count} bips',
+  itemsCount: '{count} articles',
+  singleItem: '{count} article',
+  payoutsCountSingular: '{count} sortie',
+  payoutsCountPlural: '{count} sorties',
+
+  // Operator Details Toolbar & Subtabs
+  tabSalesScans: 'Ventes / Bips ({count})',
+  tabPayouts: 'Sorties ({count})',
+  searchScansPlaceholder: 'Rechercher produit ou code bip...',
+  searchPayoutsPlaceholder: 'Rechercher motif ou observation...',
+  filterAll: 'Tous',
+  filterCash: 'ESP',
+  filterMpesa: 'MPS',
+  filterEmola: 'EML',
+  filterFiado: 'CRÉDIT',
+  subtotal: 'Sous-total :',
+  sortNewest: 'Plus Récents',
+  sortOldest: 'Plus Anciens',
+
+  // Operator Details Scans Table
+  noScansFound: 'Aucun enregistrement de bip trouvé',
+  noScansDesc: 'Essayez d\'ajuster votre recherche ou vos filtres de paiement.',
+  thItemBarcode: 'Article / Code Bip',
+  thQuantity: 'Quantité',
+  thPaymentMethod: 'Mode de Paiement',
+  thTotalValue: 'Valeur Totale (MT)',
+  thTime: 'Heure',
+  unregisteredProduct: 'Produit Non Enregistré',
+  todayAt: 'Aujourd\'hui, {time}',
+
+  // Operator Details Payouts Table
+  noPayoutsFound: 'Aucun prélèvement de caisse',
+  noPayoutsDesc: 'Cet opérateur n\'a pas encore effectué de sorties d\'argent.',
+  thReasonCategory: 'Motif / Catégorie',
+  thNotes: 'Observations',
+  thWithdrawnAmount: 'Montant Retiré',
+  thDateTime: 'Date / Heure',
+  noNotes: 'Sans observations',
+
+  // Payment Badges
+  badgeCash: 'Espèces',
+  badgeMpesa: 'M-Pesa',
+  badgeEmola: 'e-Mola',
+  badgeFiado: 'Crédit',
+
+  // Pagination
+  paginationShowing: 'Affichage de',
+  paginationTo: 'à',
+  paginationOf: 'sur',
+  paginationOperators: 'opérateurs',
+  paginationRecords: 'enregistrements',
+  prevBtn: 'Précédent',
+  nextBtn: 'Suivant',
+
+  // Guide Modal
+  guideModalTitle: 'Guide de l\'Historique des Scans & Ventes',
+  guidePageOf: 'Page {current} sur {total}',
+  guideModalSubtitle: 'Suivi des codes-barres, flux de paiement et audit de caisse',
+  guideCloseBtn: 'Fermer',
+
+  page1SectionTitle: '1. Télémétrie des Scans & Ventes',
+  page1SectionDesc: 'Chaque produit passé au lecteur de code-barres ou saisi manuellement est audité avec une précision à la seconde.',
+  page1Card1Badge: 'Bip Automatique',
+  page1Card1Title: 'Lecteur Optique USB',
+  page1Card1Desc: 'Identifie les produits instantanément. Enregistre le code exact scanné, l\'heure de lecture et la quantité ajoutée au panier.',
+  page1Card2Badge: 'Ventes & Transactions',
+  page1Card2Title: 'Association de Reçus',
+  page1Card2Desc: 'Associe chaque lecture à l\'opérateur de caisse responsable et à la vente finalisée correspondante au terminal POS.',
+  page1Card3Badge: 'Filtre de Lecture',
+  page1Card3Title: 'Succès vs Échec',
+  page1Card3Desc: 'Permet de détecter les codes non enregistrés ou les tentatives de lecture rejetées pour l\'audit du catalogue.',
+
+  page2SectionTitle: '2. Solde Physique du Tiroir & Méthodes de Paiement',
+  page2SectionDesc: 'Le système sépare rigoureusement les entrées en espèces (tiroir) des transactions électroniques et à crédit.',
+  page2Card1Badge: 'Solde Physique (Tiroir)',
+  page2Card1Title: 'Espèces ESP - Sorties',
+  page2Card1Desc: 'Formule : Espèces - Sorties. C\'est exactement la valeur monétaire qui doit figurer physiquement dans le tiroir.',
+  page2Card2Badge: 'M-Pesa & E-Mola',
+  page2Card2Title: 'Portefeuilles Mobiles',
+  page2Card2Desc: 'Les paiements mobiles sont crédités sur le compte numérique de la boutique et n\'interfèrent pas avec le comptage des espèces.',
+  page2Card3Badge: 'Ventes à Crédit / Compte',
+  page2Card3Title: 'Crédit Clients',
+  page2Card3Desc: 'Comptabilisé dans les statistiques de vente, mais séparé du montant de liquidation immédiate du tiroir.',
+
+  page3SectionTitle: '3. Prélèvements de Caisse & SQLite Hors Ligne',
+  page3SectionDesc: 'Transparence totale des dépenses opérationnelles et stockage 100% hors ligne garanti dans SQLite local.',
+  page3Card1Badge: 'Sorties de Caisse',
+  page3Card1Title: 'Prélèvements & Dépenses',
+  page3Card1Desc: 'Enregistrement des retraits avec motifs (fournisseurs, monnaie, menues dépenses), déduits directement du solde en espèces.',
+  page3Card2Badge: 'SQLite Hors Ligne',
+  page3Card2Title: 'Résilience Totale',
+  page3Card2Desc: 'Tous les scans et transactions sont enregistrés instantanément dans la base locale. Aucun scan n\'est perdu sans connexion.',
+  page3Card3Badge: 'Synchronisation Cloud',
+  page3Card3Title: 'Sauvegarde en Arrière-plan',
+  page3Card3Desc: 'Dès que la connectivité est stable, le moteur de synchronisation envoie les lots à Supabase sans bloquer le POS.',
+
+  dontShowAgain: 'Ne plus afficher',
+  prevSlide: 'Précédent',
+  nextSlide: 'Suivant',
+  understoodClose: 'Compris'
+};
+
+export default frScanHistory;

@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
+  "identifier": "default",
+  "description": "Default capabilities for Mozambique POS desktop app",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "sql:default",
+    "fs:default",
+    "dialog:default",
+    "notification:default",
+    "printer:default",
+    "updater:default",
+    "process:default"
+  ]
+}

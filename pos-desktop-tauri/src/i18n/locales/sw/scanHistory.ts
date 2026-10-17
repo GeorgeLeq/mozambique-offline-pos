@@ -1,0 +1,156 @@
+import { enScanHistory } from '../en/scanHistory';
+
+export const swScanHistory: Record<string, string> = {
+  ...enScanHistory,
+  // Topbar / Header
+  backTooltip: 'Rudi',
+  headerTitle: 'Kumbukumbu ya Shughuli & Scans',
+  headerTitleWithUser: 'Historia ya Scans: {name}',
+  proPlanBadge: 'Mpango wa Pro',
+  scansRecorded: 'scans {count} zilizorekodiwa',
+  operatorsCount: 'waendeshaji {count}',
+  operatorsSingular: 'mwendeshaji {count}',
+  globalRevenue: 'Mapato ya Jumla:',
+  guideTooltip: 'Mwongozo wa Ufafanuzi kwa Wasimamizi',
+  loading: 'Inapakia ukaguzi wa scans...',
+
+  // Subscription Locked Feature
+  lockExclusive: 'Kipengele Maalum cha Pro & Enterprise',
+  lockTitle: 'Ukaguzi wa Kina wa Scans (Kuzuia Wizi)',
+  lockDesc: 'Ufikiaji wa mfuatano wa kila msimbo pau uliotambazwa na mweka hazina, muda wa huduma na usuluhishi wa droo ni sehemu ya mpango wa Pro.',
+  lockFeature1Title: 'Kumbukumbu ya Kila Scan',
+  lockFeature1Desc: 'Muda kamili na bidhaa iliyosajiliwa kwenye kisoma.',
+  lockFeature2Title: 'Msimamo kwa Mwendeshaji',
+  lockFeature2Desc: 'Vipimo vya kulinganisha mapato na idadi ya mauzo.',
+  lockFeature3Title: 'Ufuatiliaji wa Pesa Zilizotolewa',
+  lockFeature3Desc: 'Ukaguzi wa utoaji wa fedha kwenye droo.',
+  lockFeature4Title: 'Kuzuia Udanganyifu',
+  lockFeature4Desc: 'Zuia upotevu wa bidhaa na mauzo yasiyoingizwa.',
+  btnBackToPanel: 'Rudi kwenye Dashibodi',
+  btnUnlockPro: 'Fungua kwa Pro / Enterprise',
+
+  // Operator Table Toolbar
+  searchOperatorPlaceholder: 'Tafuta kwa mwendeshaji au Kitambulisho...',
+  sortBy: 'Panga kwa:',
+  sortSalesDesc: 'Mapato ya Juu Zaidi',
+  sortScansDesc: 'Scans Nyingi Zaidi',
+  sortNameAsc: 'Jina (A-Z)',
+  operatorBadgeSingular: 'Mwendeshaji',
+  operatorBadgePlural: 'Waendeshaji',
+  totalBips: 'Jumla ya Scans:',
+
+  // Operator Table Content
+  noOperatorsFound: 'Hakuna waendeshaji waliopatikana',
+  adjustSearch: 'Jaribu kurekebisha utafutaji wako.',
+  thOperatorPerf: 'Mwendeshaji / Utendaji',
+  thScansItems: 'Scans / Vitu',
+  thValuesByMethod: 'Thamani kwa Njia (MT)',
+  thPayouts: 'Pesa Zilizotolewa',
+  thTotalRevenue: 'Jumla ya Mapato',
+  syncedCloud: 'Imesawazishwa na Wingu',
+  syncPending: 'Inasubiri usawazishaji',
+  topSeller: 'Juu',
+  bipsCount: 'scans {count}',
+  itemsCount: 'vitu {count}',
+  singleItem: 'kitu {count}',
+  payoutsCountSingular: 'utoaji {count}',
+  payoutsCountPlural: 'utoaji {count}',
+
+  // Operator Details Toolbar & Subtabs
+  tabSalesScans: 'Mauzo / Scans ({count})',
+  tabPayouts: 'Pesa Zilizotolewa ({count})',
+  searchScansPlaceholder: 'Tafuta bidhaa au msimbo pau...',
+  searchPayoutsPlaceholder: 'Tafuta sababu au maelezo...',
+  filterAll: 'Yote',
+  filterCash: 'PESA',
+  filterMpesa: 'MPS',
+  filterEmola: 'EML',
+  filterFiado: 'KIKOPO',
+  subtotal: 'Jumla ndogo:',
+  sortNewest: 'Mpya Zaidi',
+  sortOldest: 'Ya Zamani Zaidi',
+
+  // Operator Details Scans Table
+  noScansFound: 'Hakuna kumbukumbu za scans zilizopatikana',
+  noScansDesc: 'Jaribu kurekebisha utafutaji au vichungi vyako vya malipo.',
+  thItemBarcode: 'Bidhaa / Msimbo Pau',
+  thQuantity: 'Kiasi',
+  thPaymentMethod: 'Njia ya Malipo',
+  thTotalValue: 'Jumla ya Thamani (MT)',
+  thTime: 'Muda',
+  unregisteredProduct: 'Bidhaa Isiyosajiliwa',
+  todayAt: 'Leo, {time}',
+
+  // Operator Details Payouts Table
+  noPayoutsFound: 'Hakuna utoaji wa fedha kwenye droo',
+  noPayoutsDesc: 'Mwendeshaji huyu bado hajafanya utoaji wowote wa pesa taslimu.',
+  thReasonCategory: 'Sababu / Kategoria',
+  thNotes: 'Maelezo',
+  thWithdrawnAmount: 'Kiasi Kilichotolewa',
+  thDateTime: 'Tarehe / Muda',
+  noNotes: 'Bila maelezo',
+
+  // Payment Badges
+  badgeCash: 'Pesa Taslimu',
+  badgeMpesa: 'M-Pesa',
+  badgeEmola: 'e-Mola',
+  badgeFiado: 'Kikopo',
+
+  // Pagination
+  paginationShowing: 'Inaonyesha',
+  paginationTo: 'hadi',
+  paginationOf: 'kati ya',
+  paginationOperators: 'waendeshaji',
+  paginationRecords: 'kumbukumbu',
+  prevBtn: 'Iliyotangulia',
+  nextBtn: 'Inayofuata',
+
+  // Guide Modal
+  guideModalTitle: 'Mwongozo wa Historia ya Scans & Mauzo',
+  guidePageOf: 'Ukurasa {current} kati ya {total}',
+  guideModalSubtitle: 'Ufuatiliaji wa misimbo pau, mtiririko wa malipo na ukaguzi wa droo',
+  guideCloseBtn: 'Funga',
+
+  page1SectionTitle: '1. Upimaji wa Scans & Mauzo',
+  page1SectionDesc: 'Kila bidhaa inayopitishwa kwenye kisoma msimbo pau au kuingizwa kwa mikono inakaguliwa kwa usahihi wa sekunde.',
+  page1Card1Badge: 'Scan ya Kiotomatiki',
+  page1Card1Title: 'Kisoma cha USB cha Macho',
+  page1Card1Desc: 'Inatambua bidhaa mara moja. Inarekodi msimbo kamili uliosomwa, muda wa kusoma na kiasi kilichoongezwa kwenye mkokoteni.',
+  page1Card2Badge: 'Mauzo & Miamala',
+  page1Card2Title: 'Uhusiano wa Stakabadhi',
+  page1Card2Desc: 'Inaunganisha kila scan na mweka hazina anayehusika na mauzo yaliyokamilishwa kwenye kituo cha POS.',
+  page1Card3Badge: 'Kichungi cha Scan',
+  page1Card3Title: 'Mafanikio dhidi ya Kufeli',
+  page1Card3Desc: 'Husaidia kugundua misimbo isiyosajiliwa au majaribio ya scan yaliyokataliwa kwa ukaguzi wa orodha ya bidhaa.',
+
+  page2SectionTitle: '2. Salio Halisi la Droo & Njia za Malipo',
+  page2SectionDesc: 'Mfumo unatenganisha kikamilifu pesa taslimu zilizoingia kwenye droo na miamala ya kielektroniki au ya mikopo.',
+  page2Card1Badge: 'Salio Halisi (Droo)',
+  page2Card1Title: 'Pesa Taslimu - Utoaji',
+  page2Card1Desc: 'Fomula: Pesa Taslimu - Utoaji. Ni kiasi kamili cha fedha kinachopaswa kuwepo kimwili ndani ya droo.',
+  page2Card2Badge: 'M-Pesa & E-Mola',
+  page2Card2Title: 'Pochi za Simu',
+  page2Card2Desc: 'Malipo ya simu yanawekwa kwenye akaunti ya dijitali ya duka na hayaingiliani na kuhesabu pesa taslimu.',
+  page2Card3Badge: 'Mauzo ya Kikopo / Deni',
+  page2Card3Title: 'Mikopo ya Wateja',
+  page2Card3Desc: 'Huingizwa kwenye takwimu za mauzo, lakini hutenganishwa na pesa taslimu za papo hapo za droo.',
+
+  page3SectionTitle: '3. Utoaji wa Fedha & SQLite Nje ya Mtandao',
+  page3SectionDesc: 'Uwazi kamili katika gharama za uendeshaji na hifadhi ya 100% nje ya mtandao katika SQLite ya ndani.',
+  page3Card1Badge: 'Utoaji wa Pesa',
+  page3Card1Title: 'Gharama & Matumizi',
+  page3Card1Desc: 'Kumbukumbu ya kutoa pesa yenye sababu (wasambazaji, chenji, matumizi madogo), ikipunguzwa moja kwa moja kutoka kwenye pesa taslimu.',
+  page3Card2Badge: 'SQLite Nje ya Mtandao',
+  page3Card2Title: 'Uimara Kamili',
+  page3Card2Desc: 'Scans na miamala yote huhifadhiwa mara moja kwenye hifadhidata ya ndani. Hakuna scan inayopotea bila mtandao.',
+  page3Card3Badge: 'Usawazishaji wa Wingu',
+  page3Card3Title: 'Hifadhi ya Nakala Chini kwa Chini',
+  page3Card3Desc: 'Mara muunganisho wa mtandao ukiimarika, injini ya usawazishaji inatuma makundi kwenda Supabase bila kukwamisha POS.',
+
+  dontShowAgain: 'Usionyeshe tena',
+  prevSlide: 'Iliyotangulia',
+  nextSlide: 'Inayofuata',
+  understoodClose: 'Imeeleweka'
+};
+
+export default swScanHistory;

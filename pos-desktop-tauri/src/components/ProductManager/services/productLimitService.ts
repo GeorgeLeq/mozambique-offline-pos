@@ -1,0 +1,217 @@
+/**
+ * @file productLimitService.ts
+ * @description Offline-first catalog quota and inventory capacity enforcement.
+ * Enforces dynamic limits based on active local/cloud subscription plans.
+ */
+
+import { getDB } from '../../../lib/db';
+
+export interface ProductLimitCheckResult {
+  allowed: boolean;
+  limit: number;
+  current: number;
+}
+
+export interface ProductUsageSummary {
+  current: number;
+  limit: number;
+  isAtLimit: boolean;
+  isUnlimited: boolean;
+  percentage: number;
+}
+
+/**
+ * Checks if creating new product(s) is permitted under the active subscription plan.
+ * @param additionalCount Number of new products attempting to be added (default: 1).
+ */
+export async function checkProductCatalogLimit(additionalCount: number = 1): Promise<ProductLimitCheckResult> {
+  try {
+    const db = await getDB();
+
+    // 1. Check active feature entitlements & tier
+    const entRows = await db.select(`
+      SELECT feature_key, plan_tier, is_unlocked, expires_at 
+      FROM feature_entitlements 
+      WHERE is_unlocked = 1
+    `) as any[];
+
+    // Filter active and unexpired entitlements
+    const activeEntitlements = (entRows || []).filter(row => {
+      if (!row.is_unlocked) return false;
+      if (row.expires_at) {
+        return new Date(row.expires_at).getTime() > Date.now();
+      }
+      return true;
+    });
+
+    // 2. Fetch all subscription plans locally
+    let plans: any[] = [];
+    try {
+      plans = await db.select('SELECT * FROM subscription_plans ORDER BY price_mt ASC') as any[];
+    } catch (err) {
+      console.warn('[productLimitService] Error reading subscription_plans:', err);
+    }
+
+    // 3. Check for any direct shop-level setting override or plan assignments synced from Supabase
+    let shopOverrideLimit: number | null = null;
+    let shopPlanId: string | null = null;
+    let shopPlanTier: string | null = null;
+
+    try {
+      const settingRows = await db.select(
+        "SELECT key, value FROM settings WHERE key IN ('max_products', 'product_limit', 'subscription_plan_id', 'plan_id', 'plan_tier')"
+      ) as { key: string; value: string }[];
+      
+      for (const r of settingRows || []) {
+        if ((r.key === 'max_products' || r.key === 'product_limit') && r.value !== undefined && r.value !== null && r.value !== '') {
+          const val = parseInt(r.value, 10);
+          if (!isNaN(val)) {
+            shopOverrideLimit = val;
+          }
+        } else if (r.key === 'subscription_plan_id' || r.key === 'plan_id') {
+          shopPlanId = r.value ? r.value.toLowerCase() : null;
+        } else if (r.key === 'plan_tier') {
+          shopPlanTier = r.value ? r.value.toLowerCase() : null;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // Filter active paid entitlements (exclude 'free' tier)
+    const activePaidEntitlements = activeEntitlements.filter(e => 
+      e.plan_tier && e.plan_tier.toLowerCase() !== 'free'
+    );
+
+    const isPaidPlanFromSettings = (
+      (shopPlanId && shopPlanId !== 'plan_free' && shopPlanId !== 'free') ||
+      (shopPlanTier && shopPlanTier !== 'free')
+    );
+
+    let limit: number;
+
+    // Highest Priority: Direct limit override synced from Supabase shop record or plan settings
+    if (shopOverrideLimit !== null) {
+      limit = shopOverrideLimit;
+    } else if (activePaidEntitlements.length > 0 || isPaidPlanFromSettings) {
+      const activeTier = (
+        activePaidEntitlements[0]?.plan_tier || 
+        shopPlanTier || 
+        shopPlanId || 
+        'pro'
+      ).toLowerCase();
+
+      const hasUnlimited = (
+        activePaidEntitlements.some(e => e.feature_key === 'unlimited_products') ||
+        activeTier === 'enterprise' ||
+        activeTier === 'lifetime' ||
+        activeTier === 'custom' ||
+        activeTier === 'plan_pro_annual' ||
+        activeTier === 'annual'
+      );
+
+      if (hasUnlimited) {
+        const annualPlan = plans.find(p => p.id === 'plan_pro_annual' || p.period === 'annual');
+        if (annualPlan && annualPlan.max_products !== undefined && annualPlan.max_products !== null && annualPlan.max_products > 0) {
+          limit = Number(annualPlan.max_products);
+        } else {
+          limit = -1; // Unlimited
+        }
+      } else {
+        const matchedPlan = plans.find(p => 
+          p.id?.toLowerCase() === shopPlanId ||
+          p.id === activePaidEntitlements[0]?.plan_tier || 
+          p.id?.toLowerCase() === activeTier || 
+          p.period?.toLowerCase() === activeTier
+        );
+
+        if (matchedPlan && matchedPlan.max_products !== undefined && matchedPlan.max_products !== null) {
+          limit = Number(matchedPlan.max_products);
+        } else {
+          const proPlan = plans.find(p => 
+            p.id === 'plan_fiados_monthly' || 
+            p.id === 'plan_fiados_quarterly' || 
+            p.period === 'monthly' || 
+            p.period === 'quarterly'
+          ) || plans.find(p => p.price_mt > 0 && p.id !== 'plan_pro_annual');
+
+          if (proPlan && proPlan.max_products !== undefined && proPlan.max_products !== null) {
+            limit = Number(proPlan.max_products);
+          } else {
+            limit = 500;
+          }
+        }
+      }
+    } else {
+      // Default fallback for Free plan without Pro entitlement or Supabase override
+      const freePlan = plans.find(p => 
+        p.id === 'plan_free' ||
+        p.id === 'free' || 
+        p.price_mt === 0 || 
+        p.name?.toLowerCase().includes('grátis') || 
+        p.name?.toLowerCase().includes('free')
+      );
+
+      if (freePlan && freePlan.max_products !== undefined && freePlan.max_products !== null) {
+        limit = Number(freePlan.max_products);
+      } else {
+        limit = 50;
+      }
+    }
+
+    // Unlimited quota
+    if (limit === -1) {
+      const countRows = await db.select(
+        'SELECT COUNT(*) as total FROM products WHERE is_deleted IS NULL OR is_deleted = 0'
+      ) as { total: number }[];
+      const current = countRows?.[0]?.total || 0;
+      return { allowed: true, limit: -1, current };
+    }
+
+    // 4. Count current active products in catalog
+    const countRows = await db.select(
+      'SELECT COUNT(*) as total FROM products WHERE is_deleted IS NULL OR is_deleted = 0'
+    ) as { total: number }[];
+    const current = countRows?.[0]?.total || 0;
+
+    const allowed = (current + additionalCount) <= limit;
+
+    return {
+      allowed,
+      limit,
+      current
+    };
+  } catch (err) {
+    console.error('[productLimitService] checkProductCatalogLimit error:', err);
+    // Fail-safe open with reasonable default
+    return { allowed: true, limit: 50, current: 0 };
+  }
+}
+
+/**
+ * Returns summary statistics of current product catalog usage and limit.
+ */
+export async function getProductCatalogUsage(): Promise<ProductUsageSummary> {
+  try {
+    const res = await checkProductCatalogLimit(0);
+    const isUnlimited = res.limit === -1;
+    const isAtLimit = !isUnlimited && res.current >= res.limit;
+    const percentage = isUnlimited ? 0 : Math.min(100, Math.round((res.current / res.limit) * 100));
+
+    return {
+      current: res.current,
+      limit: res.limit,
+      isAtLimit,
+      isUnlimited,
+      percentage
+    };
+  } catch (e) {
+    return {
+      current: 0,
+      limit: 50,
+      isAtLimit: false,
+      isUnlimited: false,
+      percentage: 0
+    };
+  }
+}

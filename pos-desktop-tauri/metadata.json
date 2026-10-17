@@ -1,0 +1,5 @@
+{
+  "name": "Mozambique Retail POS",
+  "description": "An offline-first Point of Sale system for retail shops in Mozambique using React, Tauri, and local SQLite.",
+  "requestFramePermissions": []
+}
