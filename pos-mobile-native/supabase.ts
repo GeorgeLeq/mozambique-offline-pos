@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 
 // Replace these with your actual Supabase credentials
 // We recommend configuring these in your Expo app's app.json / EAS secrets or an .env file
-export const SUPABASE_URL = 'https://myitwyrowzzvrfjkbmti.supabase.co';
-export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15aXR3eXJvd3p6dnJmamtibXRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MzgzNDMsImV4cCI6MjA4OTQxNDM0M30.PNQntdY4oz_l_jSlmWG5i8s-LDSUSP2Jid9w86Wxlh8';
+export const SUPABASE_URL = '';
+export const SUPABASE_ANON_KEY = '';
 
 // In-memory fallback if AsyncStorage is unavailable or throws (e.g. native module not linked or web environments)
 const memoryStorage: Record<string, string> = {};
